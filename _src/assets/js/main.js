@@ -48,7 +48,7 @@ function sendRequest() {
         const showNewLi = createShowElement(show, false);
 
         for (const show of shows) {
-          if (show.id === showNewLi.id) {
+          if (show.id === showNewLi.getAttribute('data-id')) {
             showNewLi.classList.add('favourite');
           }
         }
@@ -66,7 +66,7 @@ function createShowElement(show, isFavourite) {
   const icon = document.createElement('i');
 
   showNewLi.classList.add('show__item');
-  showNewLi.id = show.id;
+  showNewLi.setAttribute('data-id', show.id);
   showNewImage.classList.add('show__img');
   showNewImage.src = show.image;
   showNewImage.alt = show.title;
@@ -87,26 +87,25 @@ function createShowElement(show, isFavourite) {
     });
     showNewLi.appendChild(icon);
   } else {
-    showNewLi.addEventListener('click', addFavouriteShow);
+    showNewLi.addEventListener('click', toggleFavouriteShow);
   }
 
   return showNewLi;
 }
 
 
-function addFavouriteShow(event) {
+function toggleFavouriteShow(event) {
   const liSelected = event.currentTarget;
   liSelected.classList.toggle('favourite');
-  // let showId = '';
-  // if (liSelected.classList.contains('favourite')) {
-  //   showId = liSelected.id;
-  //   console.log(showId)
-  //   showsSearchFavs.push('id', showId);
-  // }
 
-  createFavouriteElement(event);
-
-
+  if (liSelected.classList.contains('favourite')) {
+    createFavouriteElement(event);
+  } else {
+    const showId = liSelected.getAttribute('data-id');
+    const liFavourite = favouriteList.querySelector(`[data-id="${showId}"]`);
+    const iconFavourite = liFavourite.querySelector('i');
+    iconFavourite.click();
+  }
 }
 
 function createFavouriteElement(event) {
@@ -114,7 +113,7 @@ function createFavouriteElement(event) {
   const showTitleText = showTitle.innerText;
   const showImage = event.currentTarget.querySelector('img');
   const showImageSrc = showImage.src;
-  const showId = event.currentTarget.id;
+  const showId = event.currentTarget.getAttribute('data-id');
 
   let foundIndex = findFavouriteIndex(showId);
 
@@ -134,8 +133,16 @@ function createFavouriteElement(event) {
 
 
 function removeFavouriteShow(show, showNewLi) {
+  const liSearchToRemove = resultList.querySelector(`[data-id="${show.id}"]`);
+
+  if(liSearchToRemove){
+    liSearchToRemove.classList.remove('favourite');
+  }
+
   showNewLi.remove();
+
   const indexShow = findFavouriteIndex(show.id);
+
   if (indexShow > -1) {
     shows.splice(indexShow, 1);
   }
