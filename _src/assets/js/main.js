@@ -53,6 +53,17 @@ function createShowElement(show, isFavourite) {
   const showNewTitle = document.createElement('h3');
   const icon = document.createElement('i');
 
+  showNewLi.classList.add('show__item');
+  showNewLi.id = show.id;
+  showNewImage.classList.add('show__img');
+  showNewImage.src = show.image;
+  showNewImage.alt = show.title;
+  showNewTitle.classList.add('show__title');
+  showNewTitle.innerText = show.title;
+
+  showNewLi.appendChild(showNewImage);
+  showNewLi.appendChild(showNewTitle);
+
   if (isFavourite) {
     showNewLi.classList.add('small');
   }
@@ -66,17 +77,6 @@ function createShowElement(show, isFavourite) {
   } else {
     showNewLi.addEventListener('click', addFavouriteShow);
   }
-
-  showNewLi.classList.add('show__item');
-  showNewLi.id = show.id;
-  showNewImage.classList.add('show__img');
-  showNewImage.src = show.image;
-  showNewImage.alt = show.title;
-  showNewTitle.classList.add('show__title');
-  showNewTitle.innerText = show.title;
-
-  showNewLi.appendChild(showNewImage);
-  showNewLi.appendChild(showNewTitle);
 
   return showNewLi;
 }
