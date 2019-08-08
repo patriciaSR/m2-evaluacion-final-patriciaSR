@@ -41,30 +41,31 @@ function sendRequest() {
           id: item.show.id
         };
 
-        const showNewLi = createShowElement(show);
+        const showNewLi = createShowElement(show, false);
         resultList.appendChild(showNewLi);
       }
     });
 }
 
-function createShowElement(show) {
+function createShowElement(show, isFavourite) {
   const showNewLi = document.createElement('li');
   const showNewImage = document.createElement('img');
   const showNewTitle = document.createElement('h3');
   const icon = document.createElement('i');
 
-  // if (isFavourite) {
-  //   showNewLi.classList.add('small');
-  // }
-  // if (isFavourite) {
-  //   icon.classList.add('fas', 'fa-times-circle');
-  //   icon.addEventListener('click', () => {
-  //     removeFavourite(show, showNewLi);
-  //   });
-  //   showNewLi.appendChild(icon);
-  // } else {
-  //   showNewLi.addEventListener('click', addFavourite);
-  // }
+  if (isFavourite) {
+    showNewLi.classList.add('small');
+  }
+
+  if (isFavourite) {
+    icon.classList.add('fas', 'fa-times-circle');
+    // icon.addEventListener('click', () => {
+    //   removeFavourite(show, showNewLi);
+    // });
+    showNewLi.appendChild(icon);
+  } else {
+    showNewLi.addEventListener('click', addFavouriteShow);
+  }
 
   showNewLi.classList.add('show__item');
   showNewLi.id = show.id;
@@ -76,8 +77,6 @@ function createShowElement(show) {
 
   showNewLi.appendChild(showNewImage);
   showNewLi.appendChild(showNewTitle);
-
-  showNewLi.addEventListener('click', addFavouriteShow);
 
   return showNewLi;
 }
@@ -107,7 +106,7 @@ function createFavouriteElement(event) {
       image: showImageSrc,
       id: showId
     };
-    const newShowLi = createShowElement(show);
+    const newShowLi = createShowElement(show, true);
 
     favouriteList.appendChild(newShowLi);
     shows.push(show);

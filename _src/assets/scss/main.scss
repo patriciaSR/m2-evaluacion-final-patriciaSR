@@ -3,6 +3,9 @@
 .page__body {
   margin: 0;
 }
+.page__main {
+  display: flex;
+}
 
 .show-result__list {
   list-style: none;
@@ -32,4 +35,12 @@
       font-size: 20px;
     }
   }
+}
+
+.show-favourites__list {
+  list-style: none;
+  border: none;
+}
+.small {
+  display: flex;
 }
