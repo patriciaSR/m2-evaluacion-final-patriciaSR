@@ -5,6 +5,7 @@ const showInput = document.querySelector('.finder__input');
 const finderButton = document.querySelector('.finder__btn');
 const resultList = document.querySelector('.show-result__list');
 const favouriteList = document.querySelector('.show-favourites__list');
+const resetButton = document.querySelector('.show-favourites__reset-btn');
 
 const ENDPOINT = 'http://api.tvmaze.com/search/shows?q=';
 const defaultImage = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
@@ -14,6 +15,7 @@ let shows = [];
 
 //button listener and loadFavourites
 finderButton.addEventListener('click', sendRequest);
+resetButton.addEventListener('click', resetFavourites)
 loadFavourites();
 
 //Functions
@@ -120,6 +122,8 @@ function createShowFromFavourites(event) {
     favouriteList.appendChild(newShowLi);
     shows.push(show);
     localStorage.setItem('shows', JSON.stringify(shows));
+
+
   }
 }
 
@@ -135,9 +139,9 @@ function findFavouriteIndex(showId) {
   return foundIndex;
 }
 
-function removeFavourite(show, showNewLi) {
+function removeFavourite(show) {
   removeShowFromResults(show);
-  removeShowFromFavourites(show, showNewLi);
+  removeShowFromFavourites(show);
 }
 
 function removeShowFromResults(show) {
@@ -148,7 +152,8 @@ function removeShowFromResults(show) {
   }
 }
 
-function removeShowFromFavourites(show, showNewLi) {
+function removeShowFromFavourites(show) {
+  const showNewLi = favouriteList.querySelector(`[data-id="${show.id}"]`);
   showNewLi.remove();
 
   const indexShow = findFavouriteIndex(show.id);
@@ -159,9 +164,15 @@ function removeShowFromFavourites(show, showNewLi) {
   localStorage.setItem('shows', JSON.stringify(shows));
 }
 
+function resetFavourites(){
+  //make a copy of shows array to prevent changing length while looping throught it
+  //https://stackoverflow.com/questions/3978492/fastest-way-to-duplicate-an-array-in-javascript-slice-vs-for-loop/20547803
+  const resetArr = shows.slice();
 
-
-
+  for (const show of resetArr) {
+    removeFavourite(show);
+  }
+}
 
 //load localstorage favourites
 function loadFavourites() {
