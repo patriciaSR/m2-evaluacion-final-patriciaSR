@@ -109,7 +109,7 @@ function createFavouriteElement(event) {
 
     favouriteList.appendChild(newShowLi);
     shows.push(show);
-    localStorage.setItem('shows', JSON.stringify(show));
+    localStorage.setItem('shows', JSON.stringify(shows));
   }
 }
 
