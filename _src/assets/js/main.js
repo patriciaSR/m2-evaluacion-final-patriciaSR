@@ -13,9 +13,9 @@ const defaultImage = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV
 //Local Storage array
 let shows = [];
 
-//button listener and loadFavourites
+//buttons listeners and loadFavourites
 finderButton.addEventListener('click', sendRequest);
-resetButton.addEventListener('click', resetFavourites)
+resetButton.addEventListener('click', resetFavourites);
 loadFavourites();
 
 //Functions
@@ -74,9 +74,9 @@ function createShowElement(show, isFavourite) {
   if (isFavourite) {
     showNewLi.classList.add('small');
 
-    icon.classList.add('fas', 'fa-times-circle');
+    icon.classList.add('fas', 'fa-times-circle', 'show__remove-btn');
     icon.addEventListener('click', () => {
-      removeFavourite(show, showNewLi);
+      removeFavourite(show);
     });
 
     showNewLi.appendChild(icon);
@@ -122,8 +122,6 @@ function createShowFromFavourites(event) {
     favouriteList.appendChild(newShowLi);
     shows.push(show);
     localStorage.setItem('shows', JSON.stringify(shows));
-
-
   }
 }
 
