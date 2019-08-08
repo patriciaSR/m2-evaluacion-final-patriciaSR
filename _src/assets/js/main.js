@@ -11,6 +11,8 @@ const ENDPOINT = 'http://api.tvmaze.com/search/shows?q=';
 const defaultImage = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
 
 let shows = [];
+let showsSearchFavs = [];
+
 
 //listeners
 finderButton.addEventListener('click', searchShow);
@@ -43,7 +45,18 @@ function sendRequest() {
         };
 
         const showNewLi = createShowElement(show, false);
+
+        if (showsSearchFavs) {
+
+          for (const show of showsSearchFavs) {
+            if (showNewLi.id === show.id); {
+              showNewLi.classList.add('favourite');
+            }
+          }
+        }
         resultList.appendChild(showNewLi);
+
+
       }
     });
 }
@@ -82,9 +95,23 @@ function createShowElement(show, isFavourite) {
   return showNewLi;
 }
 
+
 function addFavouriteShow(event) {
-  event.currentTarget.classList.add('favourite');
+  const liSelected = event.currentTarget;
+  liSelected.classList.toggle('favourite');
+  let showId = '';
+  if (liSelected.classList.contains('favourite')) {
+    showId = liSelected.id;
+    console.log(showId)
+    showsSearchFavs.push('id', showId);
+  }
+
+  localStorage.setItem('showsSearchFavs', JSON.stringify(showsSearchFavs));
+
+
   createFavouriteElement(event);
+
+
 }
 
 function removePreviuosSearch() {
@@ -114,6 +141,11 @@ function createFavouriteElement(event) {
   }
 }
 
+function removeFavouriteElement() {
+
+}
+
+
 function removeFavouriteShow(show, showNewLi) {
   showNewLi.remove();
   const indexShow = findFavouriteIndex(show.id);
@@ -139,6 +171,14 @@ function findFavouriteIndex(showId) {
 //load localstorage favourites
 function loadFavourites() {
   const lsFavsShows = localStorage.getItem('shows');
+  const lsFavsSearch = localStorage.getItem('showsSearchFavs');
+
+
+  if (lsFavsSearch) {
+    showsSearchFavs = JSON.parse(lsFavsSearch);
+  }else {
+    showsSearchFavs = [];
+  }
 
   if (lsFavsShows) {
     shows = JSON.parse(lsFavsShows);
