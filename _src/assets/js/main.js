@@ -35,8 +35,29 @@ function sendRequest() {
         const showName = item.show.name;
         const showId = item.show.id;
 
-        return createNewShowElement(showImage, showName, showId);
+        const showNewLi = createNewShowElement(showImage, showName, showId);
+
+        resultList.appendChild(showNewLi);
 
       }
+
     });
+}
+
+function createNewShowElement(showImage, showName, showId) {
+  const showNewLi = document.createElement('li');
+  const showNewImage = document.createElement('img');
+  const showNewTitle =  document.createElement('h3');
+
+  showNewLi.classList.add('show__item');
+  showNewLi.id = showId;
+  showNewImage.classList.add('show__img');
+  showNewImage.src = showImage;
+  showNewImage.alt = showName;
+  showNewTitle.innerText = showName;
+
+  showNewLi.appendChild(showNewImage);
+  showNewLi.appendChild(showNewTitle);
+
+  return showNewLi;
 }
