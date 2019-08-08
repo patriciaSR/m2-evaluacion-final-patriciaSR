@@ -70,9 +70,9 @@ function createShowElement(show, isFavourite) {
 
   if (isFavourite) {
     icon.classList.add('fas', 'fa-times-circle');
-    // icon.addEventListener('click', () => {
-    //   removeFavourite(show, showNewLi);
-    // });
+    icon.addEventListener('click', () => {
+      removeFavouriteShow(show, showNewLi);
+    });
     showNewLi.appendChild(icon);
   } else {
     showNewLi.addEventListener('click', addFavouriteShow);
@@ -82,7 +82,7 @@ function createShowElement(show, isFavourite) {
 }
 
 function addFavouriteShow(event) {
-  event.currentTarget.classList.toggle('favourite');
+  event.currentTarget.classList.add('favourite');
   createFavouriteElement(event);
 }
 
@@ -96,7 +96,6 @@ function createFavouriteElement(event) {
   const showImage = event.currentTarget.querySelector('img');
   const showImageSrc = showImage.src;
   const showId = event.currentTarget.id;
-
 
   let foundIndex = findFavouriteIndex(showId);
 
@@ -114,6 +113,14 @@ function createFavouriteElement(event) {
   }
 }
 
+function removeFavouriteShow(show, showNewLi) {
+  showNewLi.remove();
+  const indexShow = findFavouriteIndex(show.id);
+  if (indexShow > -1) {
+    shows.splice(indexShow, 1);
+  }
+  localStorage.setItem('shows', JSON.stringify(shows));
+}
 
 function findFavouriteIndex(showId) {
   let foundIndex = -1;
@@ -123,6 +130,9 @@ function findFavouriteIndex(showId) {
       foundIndex = i;
     }
   }
+
   return foundIndex;
 }
+
+
 
