@@ -19,51 +19,57 @@ function searchShow() {
 }
 
 function sendRequest() {
-  const showName = showInput.nodeValue;
+  const showName = showInput.value;
+
   fetch(ENDPOINT + showName)
     .then(response => response.json())
     .then(data => {
-      let showImage = '';
-
+      removePreviuosSearch();
       for (const item of data) {
+        let showImage = '';
         if (item.show.image) {
           showImage = item.show.image.medium;
         } else {
           showImage = defaultImage;
         }
 
-        const showName = item.show.name;
-        const showId = item.show.id;
+        const show = {
+          title: item.show.name,
+          image: showImage,
+          id: item.show.id
+        };
 
-        const showNewLi = createNewShowElement(showImage, showName, showId);
-
-        showNewLi.addEventListener('click', addFavouriteShow);
-
+        const showNewLi = createNewShowElement(show);
         resultList.appendChild(showNewLi);
       }
-
     });
 }
 
-function createNewShowElement(showImage, showName, showId) {
+function createNewShowElement(show) {
   const showNewLi = document.createElement('li');
   const showNewImage = document.createElement('img');
   const showNewTitle = document.createElement('h3');
 
   showNewLi.classList.add('show__item');
-  showNewLi.id = showId;
+  showNewLi.id = show.id;
   showNewImage.classList.add('show__img');
-  showNewImage.src = showImage;
-  showNewImage.alt = showName;
+  showNewImage.src = show.image;
+  showNewImage.alt = show.title;
   showNewTitle.classList.add('show__title');
-  showNewTitle.innerText = showName;
+  showNewTitle.innerText = show.title;
 
   showNewLi.appendChild(showNewImage);
   showNewLi.appendChild(showNewTitle);
+
+  showNewLi.addEventListener('click', addFavouriteShow);
 
   return showNewLi;
 }
 
 function addFavouriteShow(event) {
   event.currentTarget.classList.toggle('favourite');
+}
+
+function removePreviuosSearch() {
+  resultList.innerHTML = '';
 }
