@@ -6,23 +6,17 @@ const finderButton = document.querySelector('.finder__btn');
 const resultList = document.querySelector('.show-result__list');
 const favouriteList = document.querySelector('.show-favourites__list');
 
-
 const ENDPOINT = 'http://api.tvmaze.com/search/shows?q=';
 const defaultImage = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
 
+//Local Storage array
 let shows = [];
-let showsSearchFavs = [];
 
-
-//listeners
-finderButton.addEventListener('click', searchShow);
+//button listener and loadFavourites
+finderButton.addEventListener('click', sendRequest);
 loadFavourites();
 
 //Functions
-function searchShow() {
-  sendRequest();
-}
-
 function sendRequest() {
   const showName = showInput.value;
 
@@ -58,7 +52,6 @@ function sendRequest() {
     });
 }
 
-
 function createShowElement(show, isFavourite) {
   const showNewLi = document.createElement('li');
   const showNewImage = document.createElement('img');
@@ -78,43 +71,42 @@ function createShowElement(show, isFavourite) {
 
   if (isFavourite) {
     showNewLi.classList.add('small');
-  }
 
-  if (isFavourite) {
     icon.classList.add('fas', 'fa-times-circle');
     icon.addEventListener('click', () => {
       removeFavourite(show, showNewLi);
     });
+
     showNewLi.appendChild(icon);
   } else {
-    showNewLi.addEventListener('click', toggleFavouriteShow);
+    showNewLi.addEventListener('click', toggleFavouriteFromResults);
   }
 
   return showNewLi;
 }
 
-
-function toggleFavouriteShow(event) {
+function toggleFavouriteFromResults(event) {
   const liSelected = event.currentTarget;
   liSelected.classList.toggle('favourite');
 
   if (liSelected.classList.contains('favourite')) {
-    createFavouriteElement(event);
+    createShowFromFavourites(event);
   } else {
     const showId = liSelected.getAttribute('data-id');
     const liFavourite = favouriteList.querySelector(`[data-id="${showId}"]`);
     const iconFavourite = liFavourite.querySelector('i');
-    iconFavourite.click();
+    iconFavourite.click(); //this click() calls to removeFavorite()
   }
 }
 
-function createFavouriteElement(event) {
+function createShowFromFavourites(event) {
   const showTitle = event.currentTarget.querySelector('h3');
   const showTitleText = showTitle.innerText;
   const showImage = event.currentTarget.querySelector('img');
   const showImageSrc = showImage.src;
   const showId = event.currentTarget.getAttribute('data-id');
 
+  //find favourite by index in shows array
   let foundIndex = findFavouriteIndex(showId);
 
   if (foundIndex === -1) {
@@ -131,16 +123,27 @@ function createFavouriteElement(event) {
   }
 }
 
+//found index by showId
+function findFavouriteIndex(showId) {
+  let foundIndex = -1;
+
+  for (let i = 0; i < shows.length; i++) {
+    if (shows[i].id === showId) {
+      foundIndex = i;
+    }
+  }
+  return foundIndex;
+}
 
 function removeFavourite(show, showNewLi) {
-  removeShowFromResult(show);
+  removeShowFromResults(show);
   removeShowFromFavourites(show, showNewLi);
 }
 
-function removeShowFromResult(show) {
+function removeShowFromResults(show) {
   const liSearchToRemove = resultList.querySelector(`[data-id="${show.id}"]`);
 
-  if(liSearchToRemove){
+  if (liSearchToRemove) {
     liSearchToRemove.classList.remove('favourite');
   }
 }
@@ -156,16 +159,7 @@ function removeShowFromFavourites(show, showNewLi) {
   localStorage.setItem('shows', JSON.stringify(shows));
 }
 
-function findFavouriteIndex(showId) {
-  let foundIndex = -1;
 
-  for (let i = 0; i < shows.length; i++) {
-    if (shows[i].id === showId) {
-      foundIndex = i;
-    }
-  }
-  return foundIndex;
-}
 
 
 
