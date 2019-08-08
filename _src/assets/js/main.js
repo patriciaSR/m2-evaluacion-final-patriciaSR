@@ -37,8 +37,9 @@ function sendRequest() {
 
         const showNewLi = createNewShowElement(showImage, showName, showId);
 
-        resultList.appendChild(showNewLi);
+        showNewLi.addEventListener('click', addFavouriteShow);
 
+        resultList.appendChild(showNewLi);
       }
 
     });
@@ -47,17 +48,22 @@ function sendRequest() {
 function createNewShowElement(showImage, showName, showId) {
   const showNewLi = document.createElement('li');
   const showNewImage = document.createElement('img');
-  const showNewTitle =  document.createElement('h3');
+  const showNewTitle = document.createElement('h3');
 
   showNewLi.classList.add('show__item');
   showNewLi.id = showId;
   showNewImage.classList.add('show__img');
   showNewImage.src = showImage;
   showNewImage.alt = showName;
+  showNewTitle.classList.add('show__title');
   showNewTitle.innerText = showName;
 
   showNewLi.appendChild(showNewImage);
   showNewLi.appendChild(showNewTitle);
 
   return showNewLi;
+}
+
+function addFavouriteShow(event) {
+  event.currentTarget.classList.toggle('favourite');
 }

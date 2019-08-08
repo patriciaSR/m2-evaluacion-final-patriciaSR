@@ -1,2 +1,14 @@
 @import 'core/settings';
 
+.favourite {
+  background-color: salmon;
+  color: blue;
+  .show__title {
+    &::after {
+      content: "★";
+      color: yellow;
+      padding-left: 20px;
+      font-size: 20px;
+    }
+  }
+}
