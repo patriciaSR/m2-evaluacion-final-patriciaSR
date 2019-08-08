@@ -29,7 +29,8 @@ function sendRequest() {
   fetch(ENDPOINT + showName)
     .then(response => response.json())
     .then(data => {
-      removePreviuosSearch();
+      resultList.innerHTML = '';
+
       for (const item of data) {
         let showImage = '';
         if (item.show.image) {
@@ -46,20 +47,17 @@ function sendRequest() {
 
         const showNewLi = createShowElement(show, false);
 
-        if (showsSearchFavs) {
-
-          for (const show of showsSearchFavs) {
-            if (showNewLi.id === show.id); {
-              showNewLi.classList.add('favourite');
-            }
+        for (const show of shows) {
+          if (show.id === showNewLi.id) {
+            showNewLi.classList.add('favourite');
           }
         }
+
         resultList.appendChild(showNewLi);
-
-
       }
     });
 }
+
 
 function createShowElement(show, isFavourite) {
   const showNewLi = document.createElement('li');
@@ -99,23 +97,16 @@ function createShowElement(show, isFavourite) {
 function addFavouriteShow(event) {
   const liSelected = event.currentTarget;
   liSelected.classList.toggle('favourite');
-  let showId = '';
-  if (liSelected.classList.contains('favourite')) {
-    showId = liSelected.id;
-    console.log(showId)
-    showsSearchFavs.push('id', showId);
-  }
-
-  localStorage.setItem('showsSearchFavs', JSON.stringify(showsSearchFavs));
-
+  // let showId = '';
+  // if (liSelected.classList.contains('favourite')) {
+  //   showId = liSelected.id;
+  //   console.log(showId)
+  //   showsSearchFavs.push('id', showId);
+  // }
 
   createFavouriteElement(event);
 
 
-}
-
-function removePreviuosSearch() {
-  resultList.innerHTML = '';
 }
 
 function createFavouriteElement(event) {
@@ -139,10 +130,6 @@ function createFavouriteElement(event) {
     shows.push(show);
     localStorage.setItem('shows', JSON.stringify(shows));
   }
-}
-
-function removeFavouriteElement() {
-
 }
 
 
@@ -171,14 +158,6 @@ function findFavouriteIndex(showId) {
 //load localstorage favourites
 function loadFavourites() {
   const lsFavsShows = localStorage.getItem('shows');
-  const lsFavsSearch = localStorage.getItem('showsSearchFavs');
-
-
-  if (lsFavsSearch) {
-    showsSearchFavs = JSON.parse(lsFavsSearch);
-  }else {
-    showsSearchFavs = [];
-  }
 
   if (lsFavsShows) {
     shows = JSON.parse(lsFavsShows);
