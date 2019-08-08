@@ -14,6 +14,7 @@ let shows = [];
 
 //listeners
 finderButton.addEventListener('click', searchShow);
+loadFavourites();
 
 //Functions
 function searchShow() {
@@ -130,9 +131,22 @@ function findFavouriteIndex(showId) {
       foundIndex = i;
     }
   }
-
   return foundIndex;
 }
 
 
 
+//load localstorage favourites
+function loadFavourites() {
+  const lsFavsShows = localStorage.getItem('shows');
+
+  if (lsFavsShows) {
+    shows = JSON.parse(lsFavsShows);
+
+    for (const show of shows) {
+      const showElement = createShowElement(show, true);
+
+      favouriteList.appendChild(showElement);
+    }
+  }
+}
