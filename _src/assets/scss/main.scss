@@ -107,13 +107,17 @@
 
 .show-favourites {
   padding-left: 15px;
+  @media all and (min-width: $tablet) {
+    order: -1;
+  }
 }
 .show-favourites__list {
   list-style: none;
   margin: 0;
   padding: 0;
-  @media all and (min-width: 720px) {
+  @media all and (min-width: $tablet) {
     padding-right: 30px;
+
   }
 }
 .show__item.small {
