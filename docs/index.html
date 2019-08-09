@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Buscador de Series</title>
+        <link rel="icon" href="tv-icon.png" />
+        <link rel="stylesheet" href="assets/css/main.css">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:900|Montserrat:400,700|Open+Sans:400,600&display=swap"
+        rel="stylesheet">
+        <script src="https://kit.fontawesome.com/af3dab66f1.js"></script>
+    </head>
+    
+    <body class="page">
+        <header class="page__header">
+            <img class="page__logo" src="../assets/images/tv-logo.png" alt="tv logo of page">
+             <h1 class="page__title">Buscador de Series</h1>
+
+            <form action="" class="show__finder">
+                <label for="show-finder" class="finder__label"></label>
+                <input type="text" id="show-finder" class="finder__input" required
+                placeholder="Buscar...">
+                <button type="button" class="finder__btn"> <i class="fas fa-search finder__btn-icon"></i>
+
+                </button>
+            </form>
+        </header>
+        <main class="page__main">
+            <ul class="show-result__list"></ul>
+            <aside class="show-favourites">
+                 <h2 class="show-favourites__title">Mis series favoritas</h2>
+
+                <ul class="show-favourites__list"></ul>
+                <button type="button" class="show-favourites__reset-btn">Borrar Favoritos</button>
+            </aside>
+        </main>
+        <script src="assets/js/main.js"></script>
+    </body>
+
+</html>
