@@ -15,10 +15,21 @@ let shows = [];
 
 //buttons listeners and loadFavourites
 finderButton.addEventListener('click', sendRequest);
+showInput.addEventListener('keyup', enterKey);
 resetButton.addEventListener('click', resetFavourites);
 loadFavourites();
 
+
 //Functions
+function enterKey() {
+  if (event.keyCode === 13) {
+    finderButton.click();
+    //to avoid  page reload when you keyup enter
+    //https://stackoverflow.com/questions/27364438/how-to-prevent-form-input-to-reload-a-page-when-receiving-enter-key
+    return false;
+  }
+}
+
 function sendRequest() {
   const showName = showInput.value;
 
