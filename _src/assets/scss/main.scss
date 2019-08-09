@@ -5,10 +5,12 @@
   margin: 0;
   background-color: $color-dark-grey;
   color: $color-dark-red;
-  text-shadow: 0 1px 1px rgba(250, 232, 232, 0.514);
+  text-shadow: 0 1px 0 black;
   font-family: $font-open;
 }
 .page__header {
+  display: flex;
+  flex-direction: column;
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid $color-ligth-grey;
@@ -16,12 +18,33 @@
     font-family: $font-montserrat;
     font-size: 30px;
   }
+  .page__logo {
+    display: inline-block;
+    max-width: 100px;
+  }
+
   .finder__input {
-    border: 1px solid $color-ligth-grey;
+    border: 1px solid $color-white;
     border-radius: 15px;
     background-color: $color-dark-red;
     color: $color-white;
-    padding: 15px;
+    padding: 10px 15px;
+    width: 210px;
+  }
+  textarea {
+    background-color: $color-dark-red;
+  }
+  .finder__btn {
+    border: none;
+    background-color: transparent;
+    transform: translate(-45px, 3px);
+
+
+    .finder__btn-icon {
+      color: $color-white;
+      font-size: 20px;
+
+    }
   }
 }
 .page__main {
