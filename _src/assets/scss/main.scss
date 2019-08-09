@@ -37,7 +37,6 @@
     margin-right: 20px;
     max-width: 100px;
   }
-
   .finder__input {
     border: 1px solid $color-ligth-grey;
     border-radius: 15px;
@@ -53,12 +52,9 @@
     border: none;
     background-color: transparent;
     transform: translate(-42px, 3px);
-
-
     .finder__btn-icon {
       color: $color-ligth-grey;
       font-size: 20px;
-
     }
   }
 }
@@ -68,7 +64,6 @@
     min-height: 80vh;
   }
 }
-
 .show-result__list {
   list-style: none;
   margin: 0;
@@ -81,7 +76,6 @@
     border-left: 1px solid $color-ligth-grey;
   }
 }
-
 .show__item {
   color: $color-dark-red;
   background-color: $color-white;
@@ -92,7 +86,6 @@
   text-align: center;
   margin: 20px 10px;
 }
-
 .favourite {
   background-color: $color-dark-red;
   color:$color-white;
@@ -105,7 +98,6 @@
     }
   }
 }
-
 .show-favourites {
   padding-left: 15px;
   @media all and (min-width: $tablet) {
@@ -118,7 +110,6 @@
   padding: 0;
   @media all and (min-width: $tablet) {
     padding-right: 30px;
-
   }
 }
 .show__item.small {
@@ -137,10 +128,8 @@
     position: absolute;
     top: 10px;
     right: 10px;
-
   }
 }
-
 .show-favourites__reset-btn {
   border: none;
   background-color: $color-dark-red;
@@ -153,8 +142,6 @@
   width: 270px;
   padding: 10px;
   margin: 10px;
-
-
   &::after {
     content: "\f2ed";
     font-family: "Font Awesome 5 Pro";
