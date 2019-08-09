@@ -3,12 +3,15 @@
 
 .page {
   margin: 0;
+  height: 100vh;
   background-color: $color-dark-grey;
   color: $color-dark-red;
   text-shadow: 0 1px 0 black;
   font-family: $font-open;
 }
 .page__header {
+  box-sizing: border-box;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,7 +51,7 @@
   .finder__btn {
     border: none;
     background-color: transparent;
-    transform: translate(-45px, 3px);
+    transform: translate(-42px, 3px);
 
 
     .finder__btn-icon {
@@ -59,7 +62,7 @@
   }
 }
 .page__main {
-
+  min-height: 80vh;
   @media all and (min-width: $tablet) {
     display: flex;
   }
@@ -70,6 +73,7 @@
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   @media all and (min-width: $tablet) {
     padding-left: 30px;
@@ -101,6 +105,9 @@
   }
 }
 
+.show-favourites {
+  padding-left: 15px;
+}
 .show-favourites__list {
   list-style: none;
   margin: 0;
@@ -129,4 +136,25 @@
   }
 }
 
+.show-favourites__reset-btn {
+  border: none;
+  background-color: $color-dark-red;
+  border-radius: 15px;
+  border: 1px solid $color-ligth-grey;
+  color: $color-ligth-grey;
+  text-shadow: 0 1px 0 black;
+  font-size: 20px;
+  font-weight: bold;
+  width: 270px;
+  padding: 10px;
+  margin: 0 10px;
 
+
+  &::after {
+    content: "\f2ed";
+    font-family: "Font Awesome 5 Pro";
+    color: $color-ligth-grey;
+    font-size: 15px;
+    margin-left: 50px;
+  }
+}
