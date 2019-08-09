@@ -1,4 +1,5 @@
 # m2-Evaluación Final Patricia Suárez Rodríguez
+![](_src/assets/images/header.png)
 
 ## Buscador de series interactivo usando JavaScript, SCSS y HTML5,
 
