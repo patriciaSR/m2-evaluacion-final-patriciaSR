@@ -8,9 +8,9 @@
   color: $color-dark-red;
   text-shadow: 0 1px 0 black;
   font-family: $font-open;
+  box-sizing: border-box;
 }
 .page__header {
-  box-sizing: border-box;
   min-height: 20vh;
   display: flex;
   flex-direction: column;
@@ -62,9 +62,9 @@
   }
 }
 .page__main {
-  min-height: 80vh;
   @media all and (min-width: $tablet) {
     display: flex;
+    min-height: 80vh;
   }
 }
 
@@ -147,7 +147,7 @@
   font-weight: bold;
   width: 270px;
   padding: 10px;
-  margin: 0 10px;
+  margin: 10px;
 
 
   &::after {
