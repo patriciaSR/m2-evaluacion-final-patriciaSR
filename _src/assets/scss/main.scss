@@ -1,32 +1,62 @@
+@import 'core/variables';
 @import 'core/settings';
 
-.page__body {
+.page {
   margin: 0;
+  background-color: $color-dark-grey;
+  color: $color-dark-red;
+  text-shadow: 0 1px 1px rgba(250, 232, 232, 0.514);
+  font-family: $font-open;
+}
+.page__header {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid $color-ligth-grey;
+  .page__title {
+    font-family: $font-montserrat;
+    font-size: 30px;
+  }
+  .finder__input {
+    border: 1px solid $color-ligth-grey;
+    border-radius: 15px;
+    background-color: $color-dark-red;
+    color: $color-white;
+    padding: 15px;
+  }
 }
 .page__main {
-  display: flex;
+
+  @media all and (min-width: $tablet) {
+    display: flex;
+  }
 }
 
 .show-result__list {
   list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
+  @media all and (min-width: $tablet) {
+    padding-left: 30px;
+    border-left: 1px solid $color-ligth-grey;
+  }
 }
 
 .show__item {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: $color-dark-red;
+  background-color: $color-white;
+  border: 1px solid rgba(236, 235, 235, 0.1);
   padding: 10px;
-  background: #fff;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 5px rgba(235, 231, 231, 0.884);
   width: 250px;
   text-align: center;
   margin: 20px 10px;
 }
 
-
 .favourite {
-  background-color: salmon;
-  color: blue;
+  background-color: $color-dark-red;
+  color:$color-white;
   .show__title {
     &::after {
       content: "★";
@@ -41,7 +71,9 @@
   list-style: none;
   margin: 0;
   padding: 0;
-
+  @media all and (min-width: 720px) {
+    padding-right: 30px;
+  }
 }
 .show__item.small {
   display: flex;
@@ -49,10 +81,11 @@
   border: none;
   position: relative;
   .show__img {
-    width: 100px;
+    width: 80px;
   }
   .show__title {
     margin-left:20px;
+    font-size: 14px;
   }
   .show__remove-btn {
     position: absolute;
