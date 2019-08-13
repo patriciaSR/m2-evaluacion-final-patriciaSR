@@ -49,7 +49,8 @@ function sendRequest() {
         const show = {
           title: item.show.name,
           image: showImage,
-          id: item.show.id
+          id: item.show.id,
+          genres: item.show.genres
         };
 
         const showNewLi = createShowElement(show, false);
@@ -70,6 +71,19 @@ function createShowElement(show, isFavourite) {
   const showNewImage = document.createElement('img');
   const showNewTitle = document.createElement('h3');
   const icon = document.createElement('i');
+  const genreList = document.createElement('ul');
+
+  if (show.genres) {
+    for (const genre of show.genres) {
+      const genreLi = document.createElement('li');
+      const genreText = document.createTextNode(genre);
+      genreLi.appendChild(genreText);
+      genreList.appendChild(genreLi);
+    }
+  }
+
+
+
 
   showNewLi.classList.add('show__item');
   showNewLi.setAttribute('data-id', show.id);
@@ -81,6 +95,7 @@ function createShowElement(show, isFavourite) {
 
   showNewLi.appendChild(showNewImage);
   showNewLi.appendChild(showNewTitle);
+  showNewLi.appendChild(genreList);
 
   if (isFavourite) {
     showNewLi.classList.add('small');
@@ -89,6 +104,7 @@ function createShowElement(show, isFavourite) {
     icon.addEventListener('click', () => {
       removeFavourite(show);
     });
+    showNewLi.addEventListener('click', printName);
 
     showNewLi.appendChild(icon);
   } else {
@@ -110,6 +126,12 @@ function toggleFavouriteFromResults(event) {
     const iconFavourite = liFavourite.querySelector('i');
     iconFavourite.click(); //this click() calls to removeFavorite()
   }
+}
+
+function printName(event) {
+  const eventLi = event.currentTarget;
+  const titleLi = eventLi.querySelector('.show__title').innerHTML;
+  console.log(titleLi);
 }
 
 function createShowFromFavourites(event) {
@@ -173,7 +195,7 @@ function removeShowFromFavourites(show) {
   localStorage.setItem('shows', JSON.stringify(shows));
 }
 
-function resetFavourites(){
+function resetFavourites() {
   //make a copy of shows array to prevent changing length while looping throught it
   //https://stackoverflow.com/questions/3978492/fastest-way-to-duplicate-an-array-in-javascript-slice-vs-for-loop/20547803
   const resetArr = shows.slice();
